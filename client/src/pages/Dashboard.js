@@ -5,23 +5,21 @@ import axios from 'axios'
 import CategoriesContext from "../context";
 
 const Dashboard = () => {
+    const baseUrl = 'https://tasks-crm-app-api.vercel.app'
     const [tickets, setTickets] = useState(null)
     const {categories, setCategories} = useContext(CategoriesContext)
 
     useEffect(() => {
 
       const getData = async () => {
-        const response = await axios.get('http://localhost:8000/tickets')
+        const response = await axios.get(`${baseUrl}/tickets`)
   
       //to get the documentId, inside of the object
       const dataObject = response.data.data
-      console.log(dataObject)
   
       const arrayOfKeys = Object.keys(dataObject)
       const arrayOfData = Object.keys(dataObject).map((key) => dataObject[key])
 
-      console.log('array of keys', arrayOfKeys)
-      console.log('array of data', arrayOfData)
       const formattedArray = []
       arrayOfKeys.forEach((key, index) => {
         const formmatedData = { ...arrayOfData[index] }
@@ -64,7 +62,7 @@ const Dashboard = () => {
                 .filter((ticket) => ticket.category === uniqueCategory)
                 .map((filteredTicket, _index) => (
                   <TicketCard
-                    id={_index}
+                    key={_index}
                     color={colors[categoryIndex % 5]}
                     ticket={filteredTicket}
                   />

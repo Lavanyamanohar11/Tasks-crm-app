@@ -5,6 +5,7 @@ import CategoriesContext from "../context"
 
 const TicketPage = ({editMode}) => {
 
+    const baseUrl = 'https://tasks-crm-app-api.vercel.app'
     const [formData, setFormData] = useState({
         status : 'not started',
         progress : 0,
@@ -13,14 +14,14 @@ const TicketPage = ({editMode}) => {
 
     const {categories, setCategories} = useContext(CategoriesContext)
 
-    console.log('categories are ', categories)
+    // console.log('categories are ', categories)
     const navigate = useNavigate()
     let { id } = useParams()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (editMode) {
-            const response = await axios.put(`http://localhost:8000/tickets/${id}`, {
+            const response = await axios.put(`${baseUrl}/tickets/${id}`, {
               data: formData,
             })
             const success = response.status === 200
@@ -30,8 +31,8 @@ const TicketPage = ({editMode}) => {
         }
 
         if (!editMode) {
-            console.log('posting')
-            const response = await axios.post('http://localhost:8000/tickets', {
+            // console.log('posting')
+            const response = await axios.post(`${baseUrl}/tickets`, {
               formData,
             })
             const success = response.status === 200
@@ -52,7 +53,7 @@ const TicketPage = ({editMode}) => {
     }
     
     const fetchData = async () => {
-        const response = await axios.get(`http://localhost:8000/tickets/${id}`)
+        const response = await axios.get(`${baseUrl}/tickets/${id}`)
         setFormData(response.data.data)
       }
     
