@@ -90,7 +90,6 @@ const TicketPage = ({editMode}) => {
                         <label>Category</label>
                         <select
                         name="category"
-                        required={true}
                         value={formData.category}
                         onChange={handleChange}
                         >
