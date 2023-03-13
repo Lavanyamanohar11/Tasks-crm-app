@@ -1,8 +1,9 @@
 import axios from "axios"
 
 const DeleteBlock = ({documentId}) => {
+    const baseUrl = 'https://tasks-crm-app-api.vercel.app'
     const deleteTicket = async () => {
-        const response = await axios.delete(`http://localhost:8000/tickets/${documentId}`)
+        const response = await axios.delete(`${baseUrl}/tickets/${documentId}`)
         const success = response.status == 200
         // if (success) window.location.reload()
     }
